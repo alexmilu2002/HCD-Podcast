@@ -1,0 +1,297 @@
+:root {
+  --surface: rgba(255,255,255,0.04);
+  --border:  rgba(255,255,255,0.08);
+  --text:    #f0ece4;
+  --muted:   rgba(240,236,228,0.45);
+  --accent:  #f5a623;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-padding-bottom: 120px; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #0f0d14;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 60px 24px 200px;
+}
+
+/* ── SITE HEADER ── */
+.site-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 48px;
+}
+
+.site-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 900;
+  letter-spacing: -0.5px; color: var(--accent);
+}
+
+.site-header h1 span { color: var(--text); }
+
+.badge {
+  margin-left: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: 15px; letter-spacing: 0.1em;
+  padding: 6px 14px; border: 1px solid var(--text);
+  border-radius: 20px; color: var(--muted); text-transform: uppercase;
+}
+
+/* ── EPISODE CARD ── */
+.episode-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 36px; margin-bottom: 32px;
+  backdrop-filter: blur(12px);
+}
+
+.episode-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text); margin-bottom: 10px;
+}
+
+.episode-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; color: var(--accent);
+}
+
+.episode-desc {
+  font-size: 18px; color: var(--text); line-height: 1.6;
+}
+
+/* ── SPEAKER GUIDE ── */
+.legend {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px 24px;
+  backdrop-filter: blur(8px); margin-top: 16px;
+}
+
+.legend h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+}
+
+.legend ul { list-style: none; display: flex; flex-wrap: wrap; gap: 12px; }
+
+.legend li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 16px; color: var(--text);
+}
+
+.legend li[style]::before {
+  content: ''; width: 13px; height: 13px;
+  border-radius: 50%; background: var(--c); flex-shrink: 0;
+}
+
+.legend-note { margin-left: auto; font-size: 14px; }
+
+/* ── CONTROLS (shared by card and sticky player) ── */
+.controls {
+  display: flex; align-items: center; gap: 14px;
+}
+
+.episode-card .controls { margin-top: 20px; }
+
+.controls button {
+  background: var(--accent); border: none; border-radius: 50%;
+  cursor: pointer; color: #0d0d12; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.controls button:hover { transform: scale(1.08); box-shadow: 0 0 20px rgba(245,166,35,0.4); }
+
+.episode-card .controls button { width: 56px; height: 56px; font-size: 20px; }
+.sticky-player  .controls button { width: 48px; height: 48px; font-size: 18px; }
+
+input[type="range"] {
+  flex: 1; -webkit-appearance: none;
+  height: 5px; background: var(--border);
+  border-radius: 3px; outline: none; cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  background: var(--accent); border-radius: 50%;
+}
+
+output {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px; color: var(--muted); white-space: nowrap;
+}
+
+/* ── TRANSCRIPT HEADER ── */
+.transcript-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+}
+
+.transcript-header h2 {
+  font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700;
+}
+
+.live-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 17px; letter-spacing: 0.1em;
+  text-transform: uppercase; font-weight: 400; color: #e74c3c;
+}
+
+.live-badge::after {
+  content: '';
+  display: inline-block; width: 12px; height: 12px;
+  background: #e74c3c; border-radius: 50%;
+  margin-left: 8px; vertical-align: middle;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ── TRANSCRIPT ENTRIES ── */
+#transcriptList { display: flex; flex-direction: column; gap: 8px; }
+
+#transcriptList article,
+#transcriptList aside {
+  border-radius: 16px; border: 1px solid var(--border);
+  background: var(--surface); backdrop-filter: blur(8px);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#transcriptList article[data-visible],
+#transcriptList aside[data-visible] { opacity: 1; transform: none; }
+
+#transcriptList article[data-active] { background: rgba(255,255,255,0.06); }
+
+/* Sound effect */
+#transcriptList aside {
+  border-style: dashed; text-align: center; padding: 16px 28px;
+}
+
+#transcriptList aside .sound-icon { font-size: 26px; margin-right: 10px; }
+
+#transcriptList aside .sound-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 15px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* Speech entry */
+#transcriptList article { padding: 24px 28px; }
+
+.speaker-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+
+.avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 18px; flex-shrink: 0;
+}
+
+.speaker-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 20px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+.emotion {
+  margin-left: auto; font-size: 28px;
+  padding: 4px 6px; border-radius: 100px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--border);
+}
+
+.speech-text { font-size: 19px; line-height: 1.7; }
+
+/* ── STICKY PLAYER ── */
+.sticky-player {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(13,13,18,0.97); backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sticky-player[data-visible] { transform: none; }
+
+.player-inner {
+  max-width: 760px; margin: 0 auto;
+  padding: 16px 24px; display: flex; align-items: center; gap: 16px;
+}
+
+.player-info {
+  flex: 0 0 auto; min-width: 0; max-width: 220px; overflow: hidden;
+}
+
+.player-info strong {
+  font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700;
+  display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text);
+}
+
+.player-info small {
+  display: block; font-family: 'Space Mono', monospace;
+  font-size: 13px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin-top: 2px;
+}
+
+.sticky-player .controls { flex: 1; }
+
+/* ── MODE TOGGLE ── */
+.mode-toggle {
+  margin-left: auto;
+}
+
+.mode-toggle button {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px; letter-spacing: 0.05em;
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.mode-toggle button:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+.mode-toggle button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d0d12;
+}
+
+/* In lezen mode: hide live badge, show all entries */
+body.lezen-mode .live-badge { display: none; }
+
+body.lezen-mode #transcriptList article,
+body.lezen-mode #transcriptList aside {
+  opacity: 1;
+  transform: none;
+}
+
+/* In lezen mode: highlight active entry more clearly */
+body.lezen-mode #transcriptList article[data-active] {
+  background: rgba(245, 166, 35, 0.1);
+  border-color: rgba(245, 166, 35, 0.4);
+}
+
+/* Sticky player hidden in lezen mode */
+body.lezen-mode .sticky-player {
+  display: none;
+}

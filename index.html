@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Podcast HCD</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeeSound</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+
+<main>
+
+  <header class="site-header">
+    <h1>See<span>Sound</span></h1>
+    <p class="badge">Voor Darice</p>
+  </header>
+
+  <article id="episodeCard" class="episode-card">
+    <p class="episode-meta">BIMS de Podcast · 8 maart 2024 · 36 min</p>
+    <h2 class="episode-title">Tjappen buiten de deur</h2>
+    <p class="episode-desc">Uiteten: ze houden ervan. Quinty neemt het op voor alle horecamedewerkers in Nederland, Edson durft zijn eten nooit terug te sturen (tenzij het bevroren is) en Soundos wil NIET aan de bar zitten. Het trio sluit de aflevering niet af voordat zij hun favoriete restaurants in de BIMS hebben gedeeld.</p>
+    <section class="legend">
+      <h3>Sprekersgids</h3>
+      <ul>
+        <li style="--c:#e8a838">Quinty</li>
+        <li style="--c:#c084fc">Soundos</li>
+        <li style="--c:#4ade80">Edson</li>
+        <li class="legend-note">🔊 = Geluidseffect 🎵 = Muziek</li>
+      </ul>
+    </section>
+    <div class="controls">
+      <button id="playBtn" onclick="togglePlay()">▶</button>
+      <input type="range" id="timeline" min="0" max="100" value="0" oninput="scrub(this.value)">
+      <output id="timeDisplay">0:00 / 36:56</output>
+    </div>
+  </article>
+
+  <section class="transcript-section">
+    <header class="transcript-header">
+      <h2>Transcript</h2>
+      <b class="live-badge" role="status">Live</b>
+      <div class="mode-toggle">
+        <button id="modeBtn" onclick="toggleMode()">Lezen</button>
+      </div>
+    </header>
+    <div id="transcriptList"></div>
+  </section>
+
+</main>
+
+<footer id="stickyBottom" class="sticky-player">
+  <div class="player-inner">
+    <div class="player-info">
+      <strong>Tjappen buiten de deur</strong>
+      <small>BIMS de Podcast</small>
+    </div>
+    <div class="controls">
+      <button id="stickyPlayBtn" onclick="togglePlay()">▶</button>
+      <input type="range" id="stickyTimeline" min="0" max="100" value="0" oninput="scrub(this.value)">
+      <output id="stickyTimeDisplay">0:00</output>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
