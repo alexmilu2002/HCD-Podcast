@@ -200,15 +200,15 @@ let ticker      = null;
 let lezenMode   = false;
 const entries   = [];
 
-// BUILD TRANSCRIPT UI
-transcript.forEach(item => {
-  let el;
+// Transcript UI, Loopt door lijst van Transcript, controleert welk type item het is en vult de elementen met inhoud.
+transcript.forEach(item => { 
+  let el; //
 
-  if (item.type === 'sound') {
+  if (item.type === 'sound') { //aside voor geluiden en bijzaken 
     el = document.createElement('aside');
     el.innerHTML = `<span class="sound-icon">${item.icon}</span><span class="sound-label">${item.label}</span>`;
   } else {
-    el = document.createElement('article');
+    el = document.createElement('article'); //article voor belangrijke stukjes, Als mensen spreken
     el.style.borderColor = item.color + '66';
     const initials = item.speaker.split(' ').map(w => w[0]).join('');
     el.innerHTML = `
@@ -220,49 +220,49 @@ transcript.forEach(item => {
       <p class="speech-text">${item.text}</p>`;
   }
 
-  entries.push(el);
-  document.getElementById('transcriptList').appendChild(el);
+  entries.push(el); //gemaakte elementen worden opgeslagen in entries
+  document.getElementById('transcriptList').appendChild(el);  //zet elementen op de pagina
 });
 
-// FORMAT TIME 
+// Format, Zet seconden naar minuten, ook op komma getallen
 function fmt(s) {
   return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
 }
 
-// PLAYBACK 
-function tick() {
-  currentTime = Math.min(currentTime + 0.5, TOTAL);
+// Playback, Zorgt ervoor dat de tijd loopt en dat data uit de transcript zichtbaar wordt
+function tick() { 
+  currentTime = Math.min(currentTime + 0.5, TOTAL); // Tijd gaat vooruit, niet verder dan de TOTAL
 
-  const pct = currentTime / TOTAL * 100;
-  document.getElementById('timeline').value = pct;
+  const pct = currentTime / TOTAL * 100; // Percentage voor de timeline
+  document.getElementById('timeline').value = pct; // timelines/sliders updaten
   document.getElementById('stickyTimeline').value = pct;
 
-  document.getElementById('timeDisplay').textContent = fmt(currentTime) + ' / ' + fmt(TOTAL);
+  document.getElementById('timeDisplay').textContent = fmt(currentTime) + ' / ' + fmt(TOTAL); // Laat zichtbare tijd zien
   document.getElementById('stickyTimeDisplay').textContent = fmt(currentTime);
 
-  entries.forEach((el, i) => {
-    const item = transcript[i];
+  entries.forEach((el, i) => { // Loopt door de entries heen
+    const item = transcript[i]; 
 
-    if (currentTime >= item.time && !el.hasAttribute('data-visible')) {
-      el.dataset.visible = '';
+    if (currentTime >= item.time && !el.hasAttribute('data-visible')) { // Checkt de tijd, en als het element data visible attribute heeft
+      el.dataset.visible = ''; //maakt het visible
 
-      if (!lezenMode) {
+      if (!lezenMode) { // Automatisch scrollen gaat uit in lezenmode
         setTimeout(() => {
-          const rect = el.getBoundingClientRect();
-          const footerH = document.getElementById('stickyBottom').offsetHeight;
-          const overlap = rect.bottom - (window.innerHeight - footerH - 16);
-          if (overlap > 0) window.scrollBy({ top: overlap, behavior: 'smooth' });
+          const rect = el.getBoundingClientRect(); //Haalt positie van het element op
+          const footerH = document.getElementById('stickyBottom').offsetHeight; 
+          const overlap = rect.bottom - (window.innerHeight - footerH - 16); // Klapt de stickybottom in
+          if (overlap > 0) window.scrollBy({ top: overlap, behavior: 'smooth' }); // Pagina scrollt smooth mee
         }, 50);
       }
     }
 
-    if (item.type === 'speech') {
+    if (item.type === 'speech') { 
       const next = transcript[i + 1];
       el.toggleAttribute('data-active', currentTime >= item.time && (!next || currentTime < next.time));
     }
   });
 
-  if (currentTime >= TOTAL) stop();
+  if (currentTime >= TOTAL) stop(); // Ticker stopt als de totale tijd is bereikt
 }
 
 // CONTROLS
