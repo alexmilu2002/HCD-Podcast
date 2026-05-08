@@ -169,6 +169,9 @@ Morgen zijn de gesprekken, dus wil ik nog even goed nadenken over wat ik wil ver
 # Bronnen 
 
 [Range Slider en Scrub](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range) 
+
 [Timing](https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval)
+
 SpotScribe voor transcriptie
+
 ChatGPT voor het analyseren van de transcriptie en het koppelen van emoties aan tekst, hulp bij de timing en transcript UI.
