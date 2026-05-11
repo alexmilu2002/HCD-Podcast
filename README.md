@@ -166,6 +166,18 @@ Check-Out - 1 uur
 
 Morgen zijn de gesprekken, dus wil ik nog even goed nadenken over wat ik wil vertellen en laten zien. Als ik nog tijd over zou hebben zou ik wel nog ene beetje willen aanpassen aan de stijl. Maar over het algemeen ben ik best tevreden met hoe mijn app eruit ziet.
 
+## Reflectie
+
+Tijdens dit project heb ik veel gewerkt volgens de Exclusive Design principles. Het principe study situation kwam vooral terug tijdens de gesprekken en tests met Darice. Door haar feedback begreep ik steeds beter wat voor haar belangrijk was, zoals grotere tekst, duidelijke sprekers en de mogelijkheid om op eigen tempo te lezen. Af en toe was het wel lastig om nuttige dingen uit de feedback te halen, maar uitendelijk is het naar mijn mening toch wel goed gelukt. Ik keek  niet alleen naar wat technisch of visueel leuk was, maar ook wat een dove gebruiker mist bij een podcast.
+
+Het principe ignore conventions zie je terug in het idee van mijn app zelf. In plaats van een standaard podcastspeler heb ik geprobeerd audio te vertalen naar iets visueel. Ik dacht na over emoties via emoji’s, achtergrond geluiden en transcripties in plaats van geluid. Tijdens het proces merkte ik wel dat sommige ideeën moest laten zitten, waardoor ik bewust keuzes moest maken om het rustiger, toegankelijker, en iets te maken wat meer bij Darice past.
+
+Prioritise identity speelde een grote rol doordat ik echt voor één persoon ontwierp. Ik baseerde veel keuzes op de voorkeuren van Darice, zoals haar favoriete podcast, lettertype, grootte van de tekst, contrast en de manier waarop emoties werden weergegeven. Ook kleine details, zoals haar naam in de titel van de website zetten, maakt het ontwerp persoonlijker.
+
+Het principe add nonsense kwam terug in de speelse elementen van mijn ontwerp. Bijvoorbeeld het gebruik van emoji’s om emoties te laten zien en een ander visueel ontwerp als mensen buiten de cast praten, of als er achtergrond geluiden zijn. Verder heb ik ook geprobeerd om kleine details toe te voegen wat het product echt afmaakt! Zoals de naam van Darice in de titel. En de kleine Live Animatie, die verdwijnt als je op de lees optie klikt.
+
+Kortom, Ik vond dit een leuk project om te doen, en ik heb veel geleerd over het ontwerpen voor een specifieke gebruiker. Het was soms lastig om keuzes te maken, omdat Darice natuurlijk niet zomaar een gebruiker is. Maar ik ben blij dat ik haar feedback heb kunnen verwerken, en ik hoop dat zij er ook blij mee is.
+
 # Bronnen 
 
 [Range Slider en Scrub](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range) 
